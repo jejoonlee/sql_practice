@@ -60,7 +60,9 @@ SELECT COUNT(*) FROM healthcare WHERE weight / ((height * 0.01) * (height * 0.01
 -- 흡연(smoking)이 3인 사람의 BMI지수가 제일 높은 사람 순서대로 5명의 id와 BMI를 출력
 -- > BMI는 체중/(키*키)의 계산 결과 
 -- > 키는 미터 단위로 계산
-SELECT id, weight / ((height * 0.01) * (height * 0.01)) BMI  FROM healthcare WHERE smoking = 3 ORDER BY BMI DESC LIMIT 5;
+SELECT id, round(weight / ((height * 0.01) * (height * 0.01)), 2) BMI  FROM healthcare WHERE smoking = 3 ORDER BY BMI DESC LIMIT 5;
+-- round 를 써서 소수 2번째까지 출력한다
+
 
 -- 자유롭게 쿼리를 작성해주시고, 결과와 함께 공유
 
