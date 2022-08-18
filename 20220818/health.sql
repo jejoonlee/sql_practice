@@ -28,10 +28,10 @@ GROUP BY is_drinking;
 
 
 -- 음주 여부로 구분한 각 그룹에서 혈압(blood_pressure)이 200이상인 사람의 수를 출력
+-- blood_pressure에서 공백 없애기
 SELECT is_drinking, COUNT(is_drinking) FROM healthcare
-WHERE blood_pressure >= 200
+WHERE blood_pressure >= 200 and blood_pressure != ''
 GROUP BY is_drinking;
-
 
 -- 시도(sido)에 사는 사람의 수가 50000명 이상인 시도의 코드와 그 시도에 사는 사람의 수를 출력
 SELECT sido, COUNT(sido) FROM healthcare
