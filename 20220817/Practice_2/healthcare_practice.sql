@@ -35,7 +35,15 @@ SELECT MAX(height), MIN(height), MAX(weight), MIN(weight) FROM healthcare;
 SELECT COUNT(*) FROM healthcare WHERE height BETWEEN 160 AND 170;
 
 -- 음주(is_drinking)를 하는 사람(1)의 허리 둘레(waist)를 높은 순으로 5명 출력 
-SELECT * FROM healthcare WHERE is_drinking = 1 AND waist LIKE '%_%' ORDER BY waist DESC LIMIT 5;
+SELECT * FROM healthcare 
+WHERE is_drinking = 1 AND waist != ''
+ORDER BY waist DESC 
+LIMIT 5;
+
+SELECT * FROM healthcare
+WHERE is_drinking = 1 AND waist LIKE '%_'
+ORDER BY waist DESC
+LIMIT 5;
 
 -- 시력 양쪽(va_left, va_right)이 1.5이상이면서 음주(is_drinking)를 하는 사람의 수를 출력
 SELECT COUNT(*) FROM healthcare WHERE (va_left >= 1.5 AND va_right >= 1.5) AND is_drinking = 1;
@@ -55,13 +63,16 @@ SELECT id, height, weight FROM healthcare ORDER BY height DESC, weight DESC LIMI
 --  BMI가 30이상인 사람의 수를 출력
 -- > BMI는 체중/(키*키)의 계산 결과 
 -- > 키는 미터 단위로 계산
-SELECT COUNT(*) FROM healthcare WHERE weight / ((height * 0.01) * (height * 0.01)) >= 30;
+SELECT COUNT(*) FROM healthcare 
+WHERE weight / ((height * 0.01) * (height * 0.01)) >= 30;
 
 -- 흡연(smoking)이 3인 사람의 BMI지수가 제일 높은 사람 순서대로 5명의 id와 BMI를 출력
 -- > BMI는 체중/(키*키)의 계산 결과 
 -- > 키는 미터 단위로 계산
-SELECT id, round(weight / ((height * 0.01) * (height * 0.01)), 2) BMI  FROM healthcare WHERE smoking = 3 ORDER BY BMI DESC LIMIT 5;
+SELECT id, round(weight / ((height * 0.01) * (height * 0.01)), 2) AS BMI
+FROM healthcare WHERE smoking = 3 ORDER BY BMI DESC LIMIT 5;
 -- round 를 써서 소수 2번째까지 출력한다
+-- AS를 써서 BMI alias를 만든다
 
 
 -- 자유롭게 쿼리를 작성해주시고, 결과와 함께 공유
