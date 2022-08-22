@@ -53,7 +53,7 @@ LIMIT 5;
 -- InvoiceLineId, InvoiceId 컬럼을 `InvoiceId` 기준으로 내림차순으로 5개만 출력
 SELECT invoice_items.InvoiceLineId, invoices.InvoiceId FROM invoice_items
 Join invoices ON invoice_items.InvoiceId = invoices.InvoiceId
-ORDER BY invoice_items.InvoiceId DESC
+ORDER BY invoices.InvoiceId DESC
 LIMIT 5;
 
 -- 11. 각 invoice에 해당하는 customer 데이터를 함께 출력
@@ -70,7 +70,7 @@ SELECT invoice_items.InvoiceLineId, invoices.InvoiceId, customers.CustomerId
 FROM invoice_items
 JOIN invoices ON invoice_items.InvoiceId = invoices.InvoiceId
 Join customers ON invoices.CustomerId = customers.CustomerId
-ORDER BY invoices.InvoiceId DESC
+ORDER BY invoice_items.InvoiceId DESC
 LIMIT 5;
 
 -- 13. 각 customer가 주문한 invoices_item의 개수를 출력
