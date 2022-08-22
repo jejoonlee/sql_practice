@@ -261,8 +261,136 @@ InvoiceLineId  InvoiceId  CustomerId
 ### 13. 각 cusotmer가 주문한 invoices_item의 개수를 출력하세요.
 
 | 단, CustomerId와 개수 컬럼을 `CustomerId` 기준으로 오름차순으로 5개만 출력하세요.
-```sqlite
 
+```sqlite
+SELECT C.CustomerId, count(*) FROM invoice_items A
+INNER JOIN (
+    SELECT * FROM invoices A
+    INNER JOIN customers B
+    ON A.CustomerId = B.CustomerId
+) C
+ON A.InvoiceId = C.InvoiceId
+GROUP BY C.CustomerId
+ORDER BY C.CustomerId ASC
+LIMIT 5;
+```
+
+```sqlite
+CustomerId  COUNT(*)
+----------  --------
+1           38
+2           38
+3           38
+4           38
+5           38
+```
+
+
+
+### 14. 각 customer가 주문한 invoices의 개수, CustomerId 기준 내림차순, 5개
+
+```sqlite
+SELECT CustomerId, COUNT(*) FROM invoices
+GROUP BY CustomerId
+ORDER BY CustomerId DESC
+LIMIT 5;
+```
+
+```sqlite
+CustomerId  COUNT(*)
+----------  --------
+59          6
+58          7
+57          7
+56          7
+55          7
+```
+
+
+
+###  15.  ArtistId, Name, 각 Artist가 낸 tracks의 수 출력, 트랙 수 기준 내림차순, 10개
+
+```sqlite
+SELECT A.ArtistId, A.Name, COUNT(*) Tracks
+FROM artists A
+JOIN albums B ON A.ArtistId = B.ArtistId
+Join Tracks T ON B.AlbumId = T.AlbumId
+GROUP BY A.ArtistId
+ORDER BY Tracks DESC
+LIMIT 10;
+```
+
+```sqlite
+ArtistId  Name             Tracks
+--------  ---------------  ------
+90        Iron Maiden      213
+150       U2               135
+22        Led Zeppelin     114
+50        Metallica        112
+58        Deep Purple      92
+149       Lost             92
+118       Pearl Jam        67
+100       Lenny Kravitz    57
+21        Various Artists  56
+156       The Office       53
+```
+
+
+
+### 16. 각 나라Country 별 고객의 수를 내림차순으로 출력하세요. LIMIT 5
+
+```sqlite
+SELECT Country, COUNT(*) "고객 수" FROM customers
+GROUP BY Country
+Order by "고객 수" DESC
+LIMIT 5;
+```
+
+```sqlite
+Country  고객 수
+-------  ----
+USA      13
+Canada   8
+France   5
+Brazil   5
+Germany  4
+```
+
+
+
+### 17. 각 나라County 별 주문 건수를 건수 기준으로 내림차순으로 출력하세요. LIMIT 10
+
+```sqlite
+```
+
+```sqlite
+```
+
+
+
+### 17-1. 각 나라 County 별 주문한 물건 개수를 개수 기준으로 내림차순으로 출력하세요. LIMIT 10
+
+```sqlite
+```
+
+```sqlite
+```
+
+
+
+### 18. 2010년에 주문한 각 나라 Country 별 주문 건수를 건수를 기준으로 내림차순으로 출력하세요. LIMIT 10
+
+```sqlite
+```
+
+```sqlite
+```
+
+
+
+### 18-1. 2010년에 주문한 각 나라 Country 별 주문힌 물건 개수를 개수 기준으로 내림차순으로 출력하세요. LIMIT 10
+
+```sqlite
 ```
 
 ```sqlite

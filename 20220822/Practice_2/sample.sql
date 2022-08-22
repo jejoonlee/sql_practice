@@ -81,3 +81,56 @@ JOIN invoices ON invoice_items.InvoiceId = invoices.InvoiceId
 JOIN customers ON invoices.CustomerId = customers.CustomerID
 GROUP BY customers.CustomerId
 LIMIT 5;
+
+-- 14. 각 customer가 주문한 invoices의 개수, CustomerId 기준 내림차순, 5개
+SELECT CustomerId, COUNT(*) FROM invoices
+GROUP BY CustomerId
+ORDER BY CustomerId DESC
+LIMIT 5;
+
+
+-- 15.  ArtistId, Name, 각 Artist가 낸 tracks의 수 출력, 트랙 수 기준 내림차순, 10개
+SELECT A.ArtistId, A.Name, COUNT(*) Tracks
+FROM artists A
+JOIN albums B ON A.ArtistId = B.ArtistId
+Join Tracks T ON B.AlbumId = T.AlbumId
+GROUP BY A.ArtistId
+ORDER BY Tracks DESC
+LIMIT 10;
+
+-- 16. 각 나라Country 별 고객의 수를 내림차순으로 출력하세요. LIMIT 5
+SELECT Country, COUNT(*) "고객 수" FROM customers
+GROUP BY Country
+Order by "고객 수" DESC
+LIMIT 5;
+
+-- 17. 각 나라Country 별 주문 건수를 건수 기준으로 내림차순으로 출력하세요. LIMIT 10
+SELECT BillingCountry Country, COUNT(*) "주문 건수" FROM invoices
+GROUP BY Country
+ORDER BY "주문 건수" DESC
+LIMIT 10;
+
+-- 17-1. 각 나라 Country 별 주문한 물건 개수를 개수 기준으로 내림차순으로 출력하세요. LIMIT 10
+SELECT C.Country, COUNT(*) "주문한 물건 개수" FROM customers C
+JOIN invoices inv ON C.CustomerId = inv.CustomerId
+JOIN invoice_items item ON inv.InvoiceId = item.InvoiceId
+GROUP BY C.Country
+ORDER BY "주문한 물건 개수" DESC
+LIMIT 10;
+
+-- 18. 2010년에 주문한 각 나라 Country 별 주문 건수를 건수를 기준으로 내림차순으로 출력하세요. LIMIT 10
+SELECT C.Country, COUNT(*) "주문 건수" FROM customers C
+JOIN invoices inv ON C.CustomerId = inv.CustomerId
+WHERE inv.InvoiceDate LIKE "2010%"
+GROUP BY C.Country
+ORDER BY "주문 건수" DESC
+LIMIT 10;
+
+-- 18-1. 2010년에 주문한 각 나라 Country 별 주문힌 물건 개수를 개수 기준으로 내림차순으로 출력하세요. LIMIT 10
+SELECT C.Country, COUNT(*) "주문 건수" FROM customers C
+JOIN invoices inv ON C.CustomerId = inv.CustomerId
+JOIN invoice_items item ON inv.InvoiceId = item.InvoiceId
+WHERE inv.InvoiceDate LIKE "2010%"
+GROUP BY C.Country
+ORDER BY "주문 건수" DESC
+LIMIT 10; 
